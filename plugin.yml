@@ -1,6 +1,6 @@
 ---
 name: EpicShop
 version: 0.0.1
-main: bink702\EpicShop\Main
+main: bink702\EpicShop
 api: 3.23.1
 ...
