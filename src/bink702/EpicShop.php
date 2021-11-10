@@ -194,7 +194,7 @@ class EpicShop extends PluginBase{
         return $n_format . $suffix;
     }
 
-    public function replace($player, $location): array
+    public function replace($player, $location): array|string
     {
 
         $from = ["{player}", "{money}"];
