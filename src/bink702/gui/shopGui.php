@@ -19,12 +19,19 @@ use pocketmine\network\mcpe\protocol\PlaySoundPacket;
 
 class shopGui extends PluginLoadOrder implements Listener {
 
-    public $block;
     public $economyAPI;
     public Config $shop;
 
-
-
+    public $block;
+    public $menu;
+    public $wooden;
+    public $wool;
+    public $potion;
+    public $decor;
+    public $tera;
+    public $tool;
+    public $farm;
+    public $food;
 
     public function openBlockShop($sender): void{
         $this->economyAPI = EpicShop::getInstance()->economyAPI;
