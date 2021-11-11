@@ -31,26 +31,24 @@ use bink702\cmd\shopForm;
 class EpicShop extends PluginBase{
 
     /** @var EpicShop */
-    public static $instance;
+    public static EpicShop $instance;
 
     /** @var InvMenu */
-    public $block;
-    public $menu;
-    public $wooden;
-    public $wool;
-    public $potion;
-    public $decor;
-    public $tera;
-    public $tool;
-    public $farm;
-    public $food;
+    public InvMenu $block;
+    public InvMenu $wooden;
+    public InvMenu $wool;
+    public InvMenu $decor;
+    public InvMenu $tera;
+    public InvMenu $tool;
+    public InvMenu $farm;
+    public InvMenu $food;
 
     /** @var Config */
-    public $cfg;
+    public Config $cfg;
     public Config $shop;
 
     /** @var economyAPI */
-    public $economyAPI;
+    public EconomyAPI $economyAPI;
 
 
 
@@ -71,11 +69,9 @@ class EpicShop extends PluginBase{
         $this->cfg = $this->getConfig();
         $this->economyAPI = $this->getServer()->getPluginManager()->getPlugin("EconomyAPI");
         $this->getServer()->getCommandMap()->register("shop", new cmd\shopForm($this));
-        $this->menu = InvMenu::create(InvMenu::TYPE_CHEST);
         $this->block = InvMenu::create(InvMenu::TYPE_DOUBLE_CHEST);
         $this->wooden = InvMenu::create(InvMenu::TYPE_DOUBLE_CHEST);
         $this->wool = InvMenu::create(InvMenu::TYPE_DOUBLE_CHEST);
-        $this->potion = InvMenu::create(InvMenu::TYPE_DOUBLE_CHEST);
         $this->decor = InvMenu::create(InvMenu::TYPE_DOUBLE_CHEST);
         $this->tera = InvMenu::create(InvMenu::TYPE_DOUBLE_CHEST);
         $this->tool = InvMenu::create(InvMenu::TYPE_DOUBLE_CHEST);
@@ -145,19 +141,52 @@ class EpicShop extends PluginBase{
                     $player->sendDataPacket($packet);
                     $menu->openWoodenShop($player);
                     break;
+                case 3:
+                    $menu = new shopGui(self::getInstance());
+                    $packet->soundName = "wellcome3";
+                    $player->sendDataPacket($packet);
+                    $menu->openTeraShop($player);
+                    break;
+                case 4:
+                    $menu = new shopGui(self::getInstance());
+                    $packet->soundName = "wellcome4";
+                    $player->sendDataPacket($packet);
+                    $menu->openDecorShop($player);
+                    break;
+                case 5:
+                    $menu = new shopGui(self::getInstance());
+                    $packet->soundName = "wellcome1";
+                    $player->sendDataPacket($packet);
+                    $menu->openToolShop($player);
+                    break;
+                case 6:
+                    $menu = new shopGui(self::getInstance());
+                    $packet->soundName = "wellcome4";
+                    $player->sendDataPacket($packet);
+                    $menu->openFoodShop($player);
+                    break;
+                case 7:
+                    $menu = new shopGui(self::getInstance());
+                    $packet->soundName = "wellcome3";
+                    $player->sendDataPacket($packet);
+                    $menu->openFarmShop($player);
+                    break;
+                case 8:
+
+                    break;
             }
+            return true;
         });
         $form->setTitle($this->cfg->get("Title"));
         $form->addButton("Block Shop", 0, "textures/blocks/dirt.png");
         $form->addButton("Wool Shop", 0, "textures/blocks/wool_colored_white.png");
         $form->addButton("Wooden Shop", 0, "textures/blocks/log_oak.png");
-        $form->addButton("Block", 0, "textures/blocks/dirt.png");
-        $form->addButton("Block", 0, "textures/blocks/dirt.png");
-        $form->addButton("Block", 0, "textures/blocks/dirt.png");
-        $form->addButton("Block", 0, "textures/blocks/dirt.png");
-        $form->addButton("Block", 0, "textures/blocks/dirt.png");
-        $form->addButton("Block", 0, "textures/blocks/dirt.png");
-        $form->addButton("Block", 0, "textures/blocks/dirt.png");
+        $form->addButton("Terracotta Shop", 0, "textures/blocks/glazed_terracotta_white.png");
+        $form->addButton("Decor Shop", 0, "textures/blocks/bookshelf.png");
+        $form->addButton("Tool Shop", 0, "textures/items/netherite_pickaxe.png");
+        $form->addButton("Food Shop", 0, "textures/items/beef_cooked.png");
+        $form->addButton("Farm Shop", 0, "textures/items/seeds_wheat.png");
+        $form->addButton("§l§4EXIT", 0, "textures/blocks/barrier");
         $form->sendToPlayer($player);
         return $form;
     }
@@ -194,7 +223,7 @@ class EpicShop extends PluginBase{
         return $n_format . $suffix;
     }
 
-    public function replace($player, $location): array|string
+    public function replace($player, $location): string
     {
 
         $from = ["{player}", "{money}"];

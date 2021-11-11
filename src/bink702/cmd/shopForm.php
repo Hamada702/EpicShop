@@ -17,6 +17,7 @@ class shopForm extends PluginCommand
      */
     private $plugin;
     private $cfg;
+    private $deskpl = "§l§aName: §6EpicShop\n§l§aAuthor: §6bink702\n§l§aDiscord: §6hamdani#6477";
 
     public function __construct(EpicShop $plugin)
     {
@@ -31,9 +32,22 @@ class shopForm extends PluginCommand
     }
 
     public function execute(CommandSender $sender, string $commandLabel, array $args){
-        if($sender instanceof Player){
-            $this->plugin->openShopForm($sender);
+        if($sender instanceof Player) {
+            if (!isset($args[0])) {
+                $sender->sendMessage("§l§a==================\n");
+                $sender->sendMessage($this->deskpl);
+                $sender->sendMessage("§l§a==================\n");
+                return true;
+            }
+            $arg = array_shift($args);
+            switch($arg){
+                case "menu":
+                    $this->plugin->openShopForm($sender);
+                    break;
+            }
+
         }
+
         return true;
     }
 
