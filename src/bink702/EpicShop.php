@@ -34,21 +34,21 @@ class EpicShop extends PluginBase{
     public static EpicShop $instance;
 
     /** @var InvMenu */
-    public InvMenu $block;
-    public InvMenu $wooden;
-    public InvMenu $wool;
-    public InvMenu $decor;
-    public InvMenu $tera;
-    public InvMenu $tool;
-    public InvMenu $farm;
-    public InvMenu $food;
+    public $block;
+    public $wooden;
+    public $wool;
+    public $decor;
+    public $tera;
+    public $tool;
+    public $farm;
+    public $food;
 
     /** @var Config */
-    public Config $cfg;
-    public Config $shop;
+    public $cfg;
+    public $shop;
 
     /** @var economyAPI */
-    public EconomyAPI $economyAPI;
+    public $economyAPI;
 
 
 
