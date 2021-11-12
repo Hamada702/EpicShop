@@ -20,8 +20,8 @@ use pocketmine\network\mcpe\protocol\PlaySoundPacket;
 class shopGui extends PluginLoadOrder implements Listener {
 
     public $economyAPI;
-    public Config $shop;
-    public Config $cfg;
+    public $shop;
+    public $cfg;
 
     public $block;
     public $wooden;
