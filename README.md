@@ -8,5 +8,6 @@
 - Edit in shop.yml
 # Command
 - /shop
+- /shop help (to view help)
 - /shop menu (to open menu shop)
-- /shop list to view all shop
+- /shop list (to view all shop)
